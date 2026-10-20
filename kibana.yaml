@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kibana
+spec:
+  replicas: 3
+  selector:
+    app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana-oss:6.0.0
+        ports:
+        - containerPort: 5601
+        env: 
+          - name: ELASTICSEARCH_URL
+            value: 'http://172.23.180.74:9200'
